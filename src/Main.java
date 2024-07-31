@@ -1,23 +1,18 @@
 import java.util.Scanner;
 
 import static java.lang.System.exit;
-
-// Abstract ATM class with abstract methods
 abstract class ATM {
     private int accountBalance;
 
     public int getAccountBalance() {
         return accountBalance;
     }
-
-    // Abstract methods for depositing, withdrawing, checking balance, adding money, and taking money
     public abstract void depositAmount(int amountToBeDeposited) throws InvalidAmountException;
     public abstract void withdrawAmount(int amountToBeWithdrawn) throws InvalidAmountException, InsufficientBalanceException;
     public abstract void checkBalance();
     public abstract void addMoney(int amountToBeDeposited);
     public abstract void takeMoney(int amountToBeWithdrawn);
 
-    // Concrete method to update balance (this will be used internally by addMoney and takeMoney)
     protected void updateBalance(int amount) {
         accountBalance += amount;
     }
@@ -26,8 +21,6 @@ abstract class ATM {
         System.out.println("________________________________");
     }
 }
-
-// BankOfIndia class extending ATM and overriding abstract methods
 class BankOfIndia extends ATM {
 
     public void initialize() {
@@ -88,8 +81,6 @@ class BankOfIndia extends ATM {
             }
         } while (true);
     }
-
-    // Overriding methods for addMoney and takeMoney
     @Override
     public void addMoney(int amountToBeDeposited) {
         updateBalance(amountToBeDeposited);
@@ -102,13 +93,11 @@ class BankOfIndia extends ATM {
         updateBalance(-amountToBeWithdrawn);
     }
 
-    // Overloaded methods for deposit
     @Override
     public void depositAmount(int amountToBeDeposited) throws InvalidAmountException {
         addMoney(amountToBeDeposited);
     }
 
-    // Overloaded methods for withdraw
     @Override
     public void withdrawAmount(int amountToBeWithdrawn) throws InvalidAmountException, InsufficientBalanceException {
         takeMoney(amountToBeWithdrawn);
